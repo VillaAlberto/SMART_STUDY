@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main role="main" class="container">
+        <div class="row mb-4">
+            <div class="col-md-4 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                    Actual version
+                </h3>
+
+                <form id="actual">
+                    <textarea name="actualVersion" disabled
+                              class="textAreaSize">{{ lec[lecture_id].content }}</textarea>
+
+                </form>
+                {% if disabled %}
+                    <a class="btn btn-sm btn-outline-secondary largeButton disabled"
+                       href="{{ url_for('modification', mod_sub_id=sub.subject_id, mod_lec_id=lecture_id, edit_id=0) }}">Propose
+                        modification</a>
+                {% else %}
+                    <a class="btn btn-sm btn-outline-secondary largeButton"
+                       href="{{ url_for('modification', mod_sub_id=sub.subject_id, mod_lec_id=lecture_id, edit_id=0) }}">Propose
+                        modification</a>
+                {% endif %}
+
+            </div><!-- /.blog-main -->
+
+            <div class="col-md-4 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                    Version to be approved
+                </h3>
+                <form id="actual">
+                    {% if proposed_edit %}
+                    {% if ed==23 %}
+                        <a href="https://www.youtube.com/watch?v=MNdV0tva1XE"><textarea disabled
+                                                                                        placeholder="No version to be approved"
+                                                                                        class="textAreaSize">{{ proposed_edit }}</textarea></a>
+                    {% elif ed==24 %}
+                        <a href="https://drive.google.com/drive/folders/1hyi7ybTqSaE9yE43Bh5R6vpSGS0n2Ak7?usp=sharing"><textarea disabled
+                                                                                        placeholder="No version to be approved"
+                                                                                        class="textAreaSize">{{ proposed_edit }}</textarea></a>
+                    {% else %}
+                        <textarea disabled placeholder="No version to be approved"
+                                  class="textAreaSize">{{ proposed_edit }}</textarea>
+                    {% endif %}
+                    {% else %}
+                        <textarea disabled placeholder="No version to be approved" class="textAreaSize"></textarea>
+                    {% endif %}
+                </form>
+
+
+
+                    {% if approve %}
+                        <a class="btn btn-sm btn-outline-secondary btn-approve halfButton float-left "
+                           href="{{ url_for('vote', lecture_id=lec[lecture_id].lecture_id, approve=1) }}">Approve</a>
+                        <a class="btn btn-sm btn-outline-secondary btn-refuse halfButton float-right "
+                           href="{{ url_for('vote', lecture_id=lec[lecture_id].lecture_id, approve=0) }}">Refuse</a>
+                    {% else %}
+                        <a class="btn btn-sm btn-outline-secondary btn-approve halfButton float-left disabled" href="#">Approve</a>
+                        <a class="btn btn-sm btn-outline-secondary btn-refuse halfButton float-right disabled" href="#">Refuse</a>
+                    {% endif %}
+
+            </div>
+
+            <aside class="col-md-4 blog-sidebar">
+
+            <a class="btn btn-sm btn-outline-primary largeButton"
+                       href={{ link }}>DOWNLOAD PDF</a>
+
+                <div class="p-4">
+                    <h4 class="font-italic">{{ sub.subject_name }}</h4>
+                    <!--Ciclo for per tutte le lezioni nel db-->
+                    <ol class="list-unstyled mb-0">
+                        {% for j in range(0,len1) %}
+                            {% if j == lecture_id %}
+                            <li>
+                                <a class="selected-lecture" href="{{ url_for('subject', subject_id=sub.subject_id, lecture_id=j) }}">L{{ j + 1 }} {{ lec[j].lecture_name }}</a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{{ url_for('subject', subject_id=sub.subject_id, lecture_id=j) }}">L{{ j + 1 }} {{ lec[j].lecture_name }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
+            </aside><!-- /.blog-sidebar -->
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+{% endblock content %}

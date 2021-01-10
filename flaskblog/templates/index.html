@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Start SmartStudy</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Concept</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Proposition</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead" id="page-top">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center">
+                <h1 class="mx-auto my-0 text-uppercase">SMARTSTUDY</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Your personal study manager</h2>
+                {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{{ url_for('ps') }}">Study Plan</a>
+                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <!-- About-->
+    <section class="about-section text-center" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-white mb-4">CONCEPT</h2>
+
+                </div>
+                <p></p>
+
+                <img class="img-fluid" src="static/assets/img/storytelling.png" alt=""/>
+
+                <div class="col-lg-8 mx-auto">
+                    <p></p>
+                    <p class="text-white-50">
+                        Unified
+                        <a href="https://idp.polito.it/idp/x509mixed-login">login</a>
+                        with <a href="https://www.polito.it/">PoliTO</a>
+                    </p>
+                    <p></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Projects-->
+    <section class="projects-section bg-light" id="projects">
+        <div class="container">
+            <!-- Featured Project Row-->
+            <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+                <div class="col-xl-8 col-lg-7">
+                    <img class="img-fluid mb-3 mb-lg-0" src="static/assets/img/vp.png"
+                         alt=""/>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4>VALUE PROPOSITION</h4>
+                        <h4>CANVAS</h4>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+    <!-- Signup-->
+    <section class="signup-section" id="signup">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto text-center">
+                    {% if current_user.is_authenticated %}
+                        <i class="fa fa-cog fa-spin fa-5x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Write here your suggestions</h2>
+                        <form class="form-inline d-flex" action="#" method="post">
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email"
+                                   placeholder="Enter your ID..." value={{ current_user.email }}>
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="text"
+                                   placeholder="Write feedback..." name="feedback"/>
+                            <button class="btn btn-primary mx-auto" type="submit" value="submit">Send</button>
+                        </form>
+                    {% else %}
+                        <i class="fa fa-comments fa-5x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">What our users think of us</h2>
+
+                    {% endif %}
+                </div>
+                <img class="img-fluid mt-4 center-image" src="static/assets/img/output.png" alt=""/>
+            </div>
+        </div>
+    </section>
+    <!-- Contact-->
+    <section class="contact-section bg-black">
+        <div class="container">
+            <div class="social d-flex justify-content-center">
+                <a class="mx-2" href="https://www.instagram.com/smart_study__/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="static/js/scripts.js"></script>
+{% endblock content %}

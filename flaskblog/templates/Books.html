@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row mb-2">
+        {% for i in range(0,len1) %}
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative min-height">
+                    <div class="col p-4 d-flex flex-column position-static">
+
+                        <p></p>
+                        {% if disabled[i] %}
+                            <a class="btn btn-sm btn-outline-secondary disabled" href="#">Ask for book</a>
+                        {% else %}
+                            <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('ask', subject_id=sub[i].subject_id) }}">Ask for book</a>
+                        {% endif %}
+                        {% if status[i] == 'EXCHANGE' %}
+                            <a class="btn btn-sm btn-outline-primary"
+                               href="{{ url_for('exchanged', it_id=item[i]) }}">Book
+                                exchanged</a>
+                        {% else %}
+                            <a class="btn btn-sm btn-outline-primary disabled" href="#">Book exchanged</a>
+                        {% endif %}
+                        <p></p>
+                        <strong class="d-inline-block mb-2 text-{{ position[i] }}">{{ sub[i].subject_name }}</strong>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg"
+                             preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+                             aria-label="Placeholder: Thumbnail"><title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#55595c"/>
+                            {% if status[i] == None %}
+                                <text x="50%" y="50%" class="nobook"
+                                      dy=".3em">NO BOOK
+                                </text>
+                            {% else %}
+                                <text x="50%" y="50%" class={{ color[i] }}
+                                      dy=".3em">{{ status[i] }}</text>
+                            {% endif %}
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock content %}

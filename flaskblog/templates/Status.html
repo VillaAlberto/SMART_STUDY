@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-6 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                    Credits and Payments
+                </h3>
+
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load("current", {packages: ["corechart"]});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        var credits = 200;
+                        var gained = {{approvals}};
+                        var missing = credits - gained
+                        var data = google.visualization.arrayToDataTable([
+                            ['Credits', 'Num credits'],
+                            ['Gained', gained],
+                            ['Missing', missing],
+                        ]);
+
+                        var options = {
+                            chartArea: {width: '85%', height: '85%'},
+                            pieHole: 0.5,
+                            pieSliceText: 'none',
+                            slices: {
+                                0: {color: '#64a19d'},
+                                1: {color: '6c757d'}
+                            },
+                            legend: 'none',
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                        chart.draw(data, options);
+                    }
+                </script>
+
+                <div id="donutchart" style="height: 320px; width: 320px; margin-left: auto; margin-right: auto"></div>
+
+                <table border="1" class="reference">
+                    <thead>
+                    <tr>
+                        <th>PERIOD</th>
+                        <th>IMPORT</th>
+                        <th>DISCOUNT</th>
+                        <th>STATUS</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr><!-- First row -->
+                        <td>1</td>
+                        <td>20,00€</td>
+                        <td>5,00€</td>
+                        <td>OK</td>
+                        <!-- <td>Table Cell</td> -->
+                    </tr>
+
+                    <tr><!-- First row -->
+                        <td>2</td>
+                        <td>20,00€</td>
+                        <td>0,00€</td>
+                        <td>OK</td>
+                        <!-- <td>Table Cell</td> -->
+                    </tr>
+
+                    <tr><!-- First row -->
+                        <td>3</td>
+                        <td>20,00€</td>
+                        <td>10,00€</td>
+                        <td>WAITING</td>
+                        <!-- <td>Table Cell</td> -->
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <a class="btn btn-sm btn-outline-secondary largeButton" href="#">PAY NOW!</a>
+
+            </div><!-- /.blog-main -->
+
+            <div class="col-md-3 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                    Your numbers
+                </h3>
+
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-first"># CONTRIBUTIONS</strong>
+                        <h3 class="mb-0">{{ len_e }}</h3>
+                    </div>
+                </div>
+
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-first"># BOOKS ON LOAN</strong>
+                        <h3 class="mb-0">{{ len_b }}</h3>
+                        <!--Si puo'aggiungere un campo nella tabella User che incrementa di uno ogni volta che si effettua uno scambio-->
+                    </div>
+                </div>
+
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-first"># NOTES STUDIED</strong>
+                        <h3 class="mb-0">{{ len_s }}</h3>
+                    </div>
+                </div>
+
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-first"># USERS</strong>
+                        <h3 class="mb-0">{{ len_u }}</h3>
+                    </div>
+                </div>
+
+
+            </div><!-- /.blog-main -->
+
+            <div class="col-md-3 blog-main">
+                <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                    Your position
+                </h3>
+
+                <div class="container p-max" id="stacked" style="">
+                    <img class="img-fluid justify-content-center" style="max-height: 560px;margin-left: 27px" src="static/assets/img/level.png" alt=""/>
+                </div>
+
+            </div><!-- /.blog-main -->
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+{% endblock content %}

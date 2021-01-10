@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="row mb-2">
+        {% for i in range(0,len1) %}
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative min-height">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-{{ position[i] }}">{{ sub[i].subject_name }}</strong>
+                        {% for prof in profs %}
+                            {% for atten in prof.attendances %}
+                                {% if atten.subject_id == sub[i].subject_id %}
+                                    <h3 class="mb-0">{{ prof.username }}</h3>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        <p></p>
+                        <a href="{{ url_for('subject', subject_id=sub[i].subject_id, lecture_id=0) }}"
+                           class="stretched-link">Access notes</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+
+{% endblock content %}

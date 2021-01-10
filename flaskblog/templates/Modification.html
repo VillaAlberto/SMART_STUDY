@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-10 blog-main">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <fieldset class="form-group">
+                        <legend class="pb-4 mb-4 font-italic border-bottom versions">{{ legend }}</legend>
+                        <div class="form-group">
+                            {{ form.title.label(class="form-control-label") }}
+                            {% if form.title.errors %}
+                                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.title.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.title(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.content.label(class="form-control-label") }}
+                            {% if form.content.errors %}
+                                {{ form.content(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.content.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.content(class="form-control form-control-lg textAreaSize") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-sm btn-outline-secondary largeButton") }}
+                    </div>
+                </form>
+            </div>
+            <!-- <div class="col-md-10 blog-main">
+                 <h3 class="pb-4 mb-4 font-italic border-bottom versions">
+                     Title of the lecture you're editing
+                 </h3>
+
+                 <form id="edits">
+                     <input type="text" name="newVersion" class="textAreaSize">
+                 </form>
+
+                 <a class="btn btn-sm btn-outline-secondary largeButton" href="#">Propose modification</a>
+
+             </div> /.blog-main -->
+
+
+            <aside class="col-md-2 blog-sidebar">
+
+                <div class="p-4">
+                    <h4 class="font-italic">Previous versions</h4>
+                    <!--Ciclo for per tutte le lezioni nel db-->
+                    <ol class="list-unstyled mb-0">
+                         {% if edit %}
+                             <li><a href="{{ url_for('modification', mod_sub_id=mod_sub_id, mod_lec_id=mod_lec_id, edit_id=0) }}">Actual version</a></li>
+                         {% else %}
+                             <li><a class="selected-lecture" href="{{ url_for('modification', mod_sub_id=mod_sub_id, mod_lec_id=mod_lec_id, edit_id=0) }}">Actual version</a></li>
+                         {% endif %}
+                        {% for ed in edits %}
+                            {% if ed.content != lec.content %}
+                              {% if ed.edit_id==edit.edit_id %}
+                              <li><a class="selected-lecture" href="{{ url_for('modification', mod_sub_id=mod_sub_id, mod_lec_id=mod_lec_id, edit_id=ed.edit_id) }}">{{ ed.edit_date.strftime('%Y-%b') }}</a></li>
+                              {% else %}
+                              <li><a href="{{ url_for('modification', mod_sub_id=mod_sub_id, mod_lec_id=mod_lec_id, edit_id=ed.edit_id) }}">{{ ed.edit_date.strftime('%Y-%b') }}</a></li>
+                              {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
+            </aside><!-- /.blog-sidebar -->
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <p></p>
+
+    <div class="container mb-5">
+    <p class="mt-5 mb-5"></p>
+    <p class="mt-5 mb-5"></p>
+        <table border="1" class="reference">
+            <thead>
+            <tr>
+                <th>SUBJECT</th>
+                <th>LECTURE</th>
+                <th>DATE</th>
+                <th>PROGRESS</th>
+                <th>APPROVALS</th>
+                <th>REFUSED</th>
+                <th>COINS</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for i in range(0,len1) %}
+                <tr><!-- First row -->
+                    <td>{{ ed[i].lecture.subject.subject_name }}</td>
+                    <td>{{ ed[i].lecture.lecture_name }}</td>
+                    <td>{{ ed[i].edit_date.strftime('%Y-%b') }}</td>
+                    <td>{{ ed[i].edit_status }}</td>
+                    <td>{{ ed[i].approvals }}</td>
+                    <td>{{ ed[i].refused }}</td>
+                    <td>{{ ed[i].approvals * 2 - ed[i].refused }}</td>
+                    <!-- <td>Table Cell</td> -->
+                </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    <p class="mt-5 mb-5"></p>
+    <p class="mt-5 mb-5"></p>
+    </div>
+{% endblock content %}
